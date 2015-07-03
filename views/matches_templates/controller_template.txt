@@ -5,12 +5,13 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 	public function __construct()
 	{
 		parent::__construct();
+
+		$this->load->model('{{MV}}_model', 'model');
 	}
 	
 	public function index()
 	{
-		$this->load->model('{{MV}}_model');
-		$data['content'] = $this->{{MV}}_model->get_all();
+		$data['content'] = $this->model->get_all();
 		$this->load->view('{{MV}}_view', $data);
 	}
 		
@@ -19,8 +20,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		$id = intval($id);
 		if($id!=0)
 		{
-			$this->load->model('{{MV}}_model');
-			$data['content'] = $this->{{MV}}_model->get($id);
+			$data['content'] = $this->model->get($id);
 			$this->load->view('{{MV}}_view', $data);
 		}
 		else
@@ -40,8 +40,8 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		else
 		{
 			$field = $this->input->post('element');
-			$this->load->model('{{MV}}_model');
-			if($this->{{MV}}_model->add(array('field_name'=>$field)))
+
+			if($this->model->add(array('field_name'=>$field)))
 			{
 				$this->load->view('{{MV}}_success_page_view');
 			}
@@ -74,8 +74,8 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		{
 			$element = $this->input->post('element');
 			$id = $this->input->post('id');
-			$this->load->model('{{MV}}_model');
-			if($this->{{MV}}_model->update(array('element'=>$element),array('id'=>$id)))
+
+			if($this->model->update(array('element'=>$element),array('id'=>$id)))
 			{
 				$this->load->view('{{MV}}_success_page_view', $data);
 			}
@@ -88,10 +88,10 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 	public function delete($id)
 	{
 		$id = intval($id);
+		
 		if($id!=0)
 		{
-			$this->load->model('{{MV}}_model');
-			$data['content'] = $this->{{MV}}_model->delete();
+			$data['content'] = $this->model->delete();
 			$this->load->view('{{MV}}_view', $data);
 		}
 		else
@@ -100,5 +100,6 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		}
 	}
 }
+
 /* End of file '{{CONTROLLER_FILE}}' */
 /* Location: ./application/controllers/{{CONTROLLER_FILE}}.php */
