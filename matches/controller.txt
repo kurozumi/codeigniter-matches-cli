@@ -6,6 +6,8 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 	{
 		parent::__construct();
 
+        $this->load->helper(array('url', 'html'));
+
 		$this->load->model('{{MV}}_model', 'model');
 	}
 	
