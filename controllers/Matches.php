@@ -138,16 +138,16 @@ class Matches extends CI_Controller {
                     $this->create_app($name);
                     break;
                 case 'controller':
-                    $this->create_controller($name);
+                    echo $this->create_controller($name);
                     break;
                 case 'model':
-                    $this->create_model($name);
+                    echo $this->create_model($name);
                     break;
                 case 'view':
-                    $this->create_view($name);
+                    echo $this->create_view($name);
                     break;
                 case 'view_template':
-                    $this->create_view_template($name);
+                    echo $this->create_view_template($name);
                     break;
                 case 'migration':
                     $this->create_migration($name);
@@ -168,10 +168,10 @@ class Matches extends CI_Controller {
                 echo $app . ' Controller or Model already exists in the application/controllers directory.';
             } else
             {
-                $this->create_controller($app);
-                $this->create_model($app);
-                $this->create_view($app);
-                $this->create_view_template($app);
+                echo $this->create_controller($app);
+                echo $this->create_model($app);
+                echo $this->create_view($app);
+                echo $this->create_view_template($app);
             }
         } else
         {
@@ -192,9 +192,10 @@ class Matches extends CI_Controller {
             $class_name  = $names['class'];
             $file_name   = $names['file'];
             $directories = $names['directories'];
+			
             if (file_exists(APPPATH . 'controllers/' . $file_name . '.php'))
             {
-                echo $this->_ret . $class_name . ' Controller already exists in the application/controllers' . $directories . ' directory.';
+                return $this->_ret . $class_name . ' Controller already exists in the application/controllers' . $directories . ' directory.';
             } else
             {
                 if (file_exists($this->_templates_loc . 'controller.tpl'))
@@ -202,8 +203,7 @@ class Matches extends CI_Controller {
                     $f = file_get_contents($this->_templates_loc . 'controller.tpl');
                 } else
                 {
-                    echo $this->_ret . 'Couldn\'t find Controller template.';
-                    return FALSE;
+                    return $this->_ret . 'Couldn\'t find Controller template.';
                 }
                 $this->_find_replace['{{CONTROLLER}}'] = $class_name;
                 $this->_find_replace['{{CONTROLLER_FILE}}'] = $file_name . '.php';
@@ -216,17 +216,15 @@ class Matches extends CI_Controller {
                 }
                 if (write_file(APPPATH . 'controllers/' . $file_name . '.php', $f))
                 {
-                    echo $this->_ret . 'Controller ' . $class_name . ' has been created inside ' . APPPATH . 'controllers/' . $directories . '.';
-                    return TRUE;
+                    return $this->_ret . 'Controller ' . $class_name . ' has been created inside ' . APPPATH . 'controllers/' . $directories . '.';
                 } else
                 {
-                    echo $this->_ret . 'Couldn\'t write Controller.';
-                    return FALSE;
+                    return $this->_ret . 'Couldn\'t write Controller.';
                 }
             }
         } else
         {
-            echo $this->_ret . 'You need to provide a name for the controller.';
+            return $this->_ret . 'You need to provide a name for the controller.';
         }
     }
 
@@ -246,7 +244,7 @@ class Matches extends CI_Controller {
             
             if (file_exists(APPPATH . 'models/' . $file_name . '_model.php'))
             {
-                echo $this->_ret . $class_name . ' Model already exists in the application/models' . $directories . ' directory.';
+                return $this->_ret . $class_name . ' Model already exists in the application/models' . $directories . ' directory.';
             } else
             {
                 if (file_exists($this->_templates_loc . 'model.tpl'))
@@ -254,8 +252,7 @@ class Matches extends CI_Controller {
                     $f = file_get_contents($this->_templates_loc . 'model.tpl');
                 } else
                 {
-                    echo $this->_ret . 'Couldn\'t find Model template.';
-                    return FALSE;
+                    return $this->_ret . 'Couldn\'t find Model template.';
                 }
                 $this->_find_replace['{{MODEL}}'] = $class_name;
                 $this->_find_replace['{{MODEL_FILE}}'] = $file_name . '_model.php';
@@ -267,17 +264,15 @@ class Matches extends CI_Controller {
                 }
                 if (write_file(APPPATH . 'models/' . $file_name . '_model.php', $f))
                 {
-                    echo $this->_ret . 'Model ' . $class_name . ' has been created inside ' . APPPATH . 'models/' . $directories . '.';
-                    return TRUE;
+                    return $this->_ret . 'Model ' . $class_name . ' has been created inside ' . APPPATH . 'models/' . $directories . '.';
                 } else
                 {
-                    echo $this->_ret . 'Couldn\'t write Model.';
-                    return FALSE;
+                    return $this->_ret . 'Couldn\'t write Model.';
                 }
             }
         } else
         {
-            echo $this->_ret . 'You need to provide a name for the model.';
+            return $this->_ret . 'You need to provide a name for the model.';
         }
     }
 
@@ -296,7 +291,7 @@ class Matches extends CI_Controller {
             
             if (file_exists(APPPATH . 'views/' . $file_name . '/index.php'))
             {
-                echo $this->_ret . $file_name . ' View already exists in the application/views/' . $directories . ' directory.';
+                return $this->_ret . $file_name . ' View already exists in the application/views/' . $directories . ' directory.';
             } else
             {
                 if (file_exists($this->_templates_loc . 'view.tpl'))
@@ -304,8 +299,7 @@ class Matches extends CI_Controller {
                     $f = file_get_contents($this->_templates_loc . 'view.tpl');
                 } else
                 {
-                    echo $this->_ret . 'Couldn\'t find View template.';
-                    return FALSE;
+                    return $this->_ret . 'Couldn\'t find View template.';
                 }
                 
                 $this->_find_replace['{{VIEW}}'] = $file_name . '/index.php';
@@ -318,17 +312,15 @@ class Matches extends CI_Controller {
                 
                 if (write_file(APPPATH . 'views/' . $file_name . '/index.php', $f))
                 {
-                    echo $this->_ret . 'View ' . $file_name . ' has been created inside ' . APPPATH . 'views/' . $directories . '.';
-                    return TRUE;
+                    return $this->_ret . 'View ' . $file_name . ' has been created inside ' . APPPATH . 'views/' . $directories . '.';
                 } else
                 {
-                    echo $this->_ret . 'Couldn\'t write View.';
-                    return FALSE;
+                    return $this->_ret . 'Couldn\'t write View.';
                 }
             }
         } else
         {
-            echo $this->_ret . 'You need to provide a name for the view file.';
+            return $this->_ret . 'You need to provide a name for the view file.';
         }
     }
 
@@ -338,16 +330,11 @@ class Matches extends CI_Controller {
 	 * @param type $view
 	 * @return boolean
 	 */
-    public function create_view_template($view = NULL)
+    public function create_view_template()
     {
-        if (isset($view))
-        {
-            $names = $this->_names($view);
-            $directories = $names['directories'];
-            
             if (file_exists(APPPATH . 'views/template.php'))
             {
-                echo $this->_ret . 'template View already exists in the application/views/' . $directories . ' directory.';
+                return $this->_ret . 'template View already exists in the application/views/ directory.';
             } else
             {
                 if (file_exists($this->_templates_loc . 'view_template.tpl'))
@@ -355,29 +342,18 @@ class Matches extends CI_Controller {
                     $f = file_get_contents($this->_templates_loc . 'view_template.tpl');
                 } else
                 {
-                    echo $this->_ret . 'Couldn\'t find View template.';
-                    return FALSE;
+                    return $this->_ret . 'Couldn\'t find View template.';
                 }
                 
-                if (strlen($directories) > 0 && !file_exists(APPPATH . 'views/' . $directories))
-                {
-                    mkdir(APPPATH . 'views/' . $directories, 0777, true);
-                }
-
                 if (write_file(APPPATH . 'views/template.php', $f))
                 {
-                    echo $this->_ret . 'View template has been created inside ' . APPPATH . 'views/' . $directories . '.';
-                    return TRUE;
+                    return $this->_ret . 'View template has been created inside ' . APPPATH . 'views/.';
                 } else
                 {
-                    echo $this->_ret . 'Couldn\'t write View.';
-                    return FALSE;
+                    return $this->_ret . 'Couldn\'t write View.';
                 }
             }
-        } else
-        {
-            echo $this->_ret . 'You need to provide a name for the view file.';
-        }
+
     }
 
     public function do_migration()
@@ -527,6 +503,7 @@ class Matches extends CI_Controller {
     private function _names($str)
     {
         $str = strtolower($str);
+		
         if (strpos($str, '.'))
         {
             $structure = explode('.', $str);
@@ -536,15 +513,19 @@ class Matches extends CI_Controller {
             $structure = array();
             $class_name = $str;
         }
+		
         $class_name = ucfirst($class_name);
         $file_name = $class_name;
-        if (substr(CI_VERSION, 0, 1) != '2')
+        
+		if (substr(CI_VERSION, 0, 1) != '2')
         {
             $file_name = ucfirst($file_name);
         }
+		
         $directories = implode('/', $structure);
         $file = $directories . '/' . $file_name;
-        return array('file' => $file, 'class' => $class_name, 'directories' => $directories);
+        
+		return array('file' => $file, 'class' => $class_name, 'directories' => $directories);
     }
 
     private function _filename($str)
