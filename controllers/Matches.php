@@ -123,8 +123,9 @@ class Matches extends CI_Controller {
     {
         $what = filter_var($what, FILTER_SANITIZE_STRING);
         $name = filter_var($name, FILTER_SANITIZE_STRING);
-        $can_create = array('app', 'controller', 'model', 'view', 'migration');
-        if (in_array($what, $can_create))
+        $can_create = array('app', 'controller', 'model', 'view', 'view_template', 'migration');
+
+		if (in_array($what, $can_create))
         {
             if (empty($name))
             {
@@ -145,7 +146,7 @@ class Matches extends CI_Controller {
                 case 'view':
                     $this->create_view($name);
                     break;
-                case 'view':
+                case 'view_template':
                     $this->create_view_template($name);
                     break;
                 case 'migration':
@@ -188,8 +189,8 @@ class Matches extends CI_Controller {
         if (isset($controller))
         {
             $names = $this->_names($controller);
-            $class_name = $names['class'];
-            $file_name = $names['file'];
+            $class_name  = $names['class'];
+            $file_name   = $names['file'];
             $directories = $names['directories'];
             if (file_exists(APPPATH . 'controllers/' . $file_name . '.php'))
             {
@@ -280,20 +281,20 @@ class Matches extends CI_Controller {
         }
     }
 
-    /*
-     * create view
-     * returns string
-     */
-
+	/**
+	 * create view
+	 * @param type $view
+	 * @return boolean
+	 */
     public function create_view($view = NULL)
     {
         if (isset($view))
         {
-            $names = $this->_names($view);
-            $file_name = $names['file'];
+            $names       = $this->_names($view);
+            $file_name   = $names['file'];
             $directories = $names['directories'];
             
-            if (file_exists(APPPATH . 'views/' . $file_name . '.php'))
+            if (file_exists(APPPATH . 'views/' . $file_name . '/index.php'))
             {
                 echo $this->_ret . $file_name . ' View already exists in the application/views/' . $directories . ' directory.';
             } else
@@ -307,7 +308,7 @@ class Matches extends CI_Controller {
                     return FALSE;
                 }
                 
-                $this->_find_replace['{{VIEW}}'] = $file_name . '.php';
+                $this->_find_replace['{{VIEW}}'] = $file_name . '/index.php';
                 $f = strtr($f, $this->_find_replace);
                 
                 if (strlen($directories) > 0 && !file_exists(APPPATH . 'views/' . $directories))
@@ -315,7 +316,7 @@ class Matches extends CI_Controller {
                     mkdir(APPPATH . 'views/' . $directories, 0777, true);
                 }
                 
-                if (write_file(APPPATH . 'views/' . $file_name . '.php', $f))
+                if (write_file(APPPATH . 'views/' . $file_name . '/index.php', $f))
                 {
                     echo $this->_ret . 'View ' . $file_name . ' has been created inside ' . APPPATH . 'views/' . $directories . '.';
                     return TRUE;
@@ -332,10 +333,11 @@ class Matches extends CI_Controller {
     }
 
     /*
-     * create view
-     * returns string
-     */
-
+	/**
+	 * create view template
+	 * @param type $view
+	 * @return boolean
+	 */
     public function create_view_template($view = NULL)
     {
         if (isset($view))

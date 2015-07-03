@@ -11,6 +11,14 @@ class {{MODEL}}_model extends {{MO_EXTENDS}}_Model
 	{
 		return ('This is your first application');
 	}
+	
+	public function get($id){}
+	
+	puhlic function add($data){}
+	
+	public function update($data){}
+	
+	public function delete($id){}
 }
 
 /* End of file '{{MODEL_FILE}}' */
