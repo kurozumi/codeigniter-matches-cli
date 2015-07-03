@@ -14,7 +14,7 @@ class {{MODEL}}_model extends {{MO_EXTENDS}}_Model
 	
 	public function get($id){}
 	
-	puhlic function add($data){}
+	public function add($data){}
 	
 	public function update($data){}
 	
