@@ -18,8 +18,9 @@ class {{MIGRATION}} extends {{MI_EXTENDS}}_Migration
     	}
 	public function down()
 	{
-        	$this->dbforge->drop_table('{{TABLE}}');
-        }
+		$this->dbforge->drop_table('{{TABLE}}');
+	}
 }
+
 /* End of file '{{MIGRATION_FILE}}' */
 /* Location: ./{{MIGRATION_PATH}}{{MIGRATION_FILE}}.php */

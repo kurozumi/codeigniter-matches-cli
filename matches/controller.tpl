@@ -24,7 +24,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		if($id!=0)
 		{
 			$data['content'] = $this->model->get($id);
-    		$this->_render_page('{{MV}}_view', $data);
+			$this->_render_page('{{MV}}_view', $data);
 		}
 		else
 		{
@@ -38,7 +38,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		if($this->form_validation->run()===FALSE)
 		{
 			$data['input_element'] = array('name'=>'element', 'id'=>'element', 'value'=>set_value('element'));
-    		$this->_render_page('{{MV}}_view', $data);
+			$this->_render_page('{{MV}}_view', $data);
 		}
 		else
 		{
@@ -46,11 +46,11 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 
 			if($this->model->add(array('field_name'=>$field)))
 			{
-        		$this->_render_page('{{MV}}_success_page_view');
+				$this->_render_page('{{MV}}_success_page_view');
 			}
 			else
 			{
-        		$this->_render_page('{{MV}}_error_page_view');
+				$this->_render_page('{{MV}}_error_page_view');
 			}
 		}
 	}
@@ -73,7 +73,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 			
 			$data['input_element'] = array('name'=>'element', 'id'=>'element', 'value'=>set_value('element'));
 			$data['hidden'] = array('id'=>set_value('id',$id));
-    		$this->_render_page('{{MV}}_view', $data);
+			$this->_render_page('{{MV}}_view', $data);
 		}
 		else
 		{
@@ -82,11 +82,11 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 
 			if($this->model->update(array('element'=>$element),array('id'=>$id)))
 			{
-        		$this->_render_page('{{MV}}_success_page_view');
+				$this->_render_page('{{MV}}_success_page_view');
 			}
 			else
 			{
-        		$this->_render_page('{{MV}}_error_page_view');
+				$this->_render_page('{{MV}}_error_page_view');
 			}
 		}
 	}
@@ -97,7 +97,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		if($id!=0)
 		{
 			$data['content'] = $this->model->delete();
-    		$this->_render_page('{{MV}}_view', $data);
+			$this->_render_page('{{MV}}_view', $data);
 		}
 		else
 		{
@@ -107,12 +107,11 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 
 	private function _render_page($view, $data=null, $render=false)
 	{
-
 		$this->viewdata = (empty($data)) ? $this->data: $data;
-        $this->viewdata['include'] = $view;
+		$this->viewdata['include'] = $view;
 
 		$view_html = $this->load->view('template', $this->viewdata, $render);
-            
+
 		if (!$render) return $view_html;
 	}
 }
