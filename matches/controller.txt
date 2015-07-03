@@ -6,7 +6,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 	{
 		parent::__construct();
 
-        $this->load->helper(array('url', 'html'));
+		$this->load->helper(array('url', 'html'));
 
 		$this->load->model('{{MV}}_model', 'model');
 	}
@@ -14,7 +14,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 	public function index()
 	{
 		$data['content'] = $this->model->get_all();
-		$this->load->view('{{MV}}_view', $data);
+		$this->_render_page('{{MV}}_view', $data);
 	}
 		
 	public function get($id)
@@ -24,7 +24,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		if($id!=0)
 		{
 			$data['content'] = $this->model->get($id);
-			$this->load->view('{{MV}}_view', $data);
+    		$this->_render_page('{{MV}}_view', $data);
 		}
 		else
 		{
@@ -38,7 +38,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		if($this->form_validation->run()===FALSE)
 		{
 			$data['input_element'] = array('name'=>'element', 'id'=>'element', 'value'=>set_value('element'));
-			$this->load->view('{{MV}}_view', $data);
+    		$this->_render_page('{{MV}}_view', $data);
 		}
 		else
 		{
@@ -46,11 +46,11 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 
 			if($this->model->add(array('field_name'=>$field)))
 			{
-				$this->load->view('{{MV}}_success_page_view');
+        		$this->_render_page('{{MV}}_success_page_view');
 			}
 			else
 			{
-				$this->load->view('{{MV}}_error_page_view');
+        		$this->_render_page('{{MV}}_error_page_view');
 			}
 		}
 	}
@@ -73,7 +73,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 			
 			$data['input_element'] = array('name'=>'element', 'id'=>'element', 'value'=>set_value('element'));
 			$data['hidden'] = array('id'=>set_value('id',$id));
-			$this->load->view('{{MV}}_view', $data);
+    		$this->_render_page('{{MV}}_view', $data);
 		}
 		else
 		{
@@ -82,11 +82,11 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 
 			if($this->model->update(array('element'=>$element),array('id'=>$id)))
 			{
-				$this->load->view('{{MV}}_success_page_view', $data);
+        		$this->_render_page('{{MV}}_success_page_view');
 			}
 			else
 			{
-				$this->load->view('{{MV}}_error_page_view');
+        		$this->_render_page('{{MV}}_error_page_view');
 			}
 		}
 	}
@@ -97,12 +97,23 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		if($id!=0)
 		{
 			$data['content'] = $this->model->delete();
-			$this->load->view('{{MV}}_view', $data);
+    		$this->_render_page('{{MV}}_view', $data);
 		}
 		else
 		{
 			redirect(site_url(), 'refresh');
 		}
+	}
+
+	private function _render_page($view, $data=null, $render=false)
+	{
+
+		$this->viewdata = (empty($data)) ? $this->data: $data;
+        $this->viewdata['include'] = $view;
+
+		$view_html = $this->load->view('template', $this->viewdata, $render);
+            
+		if (!$render) return $view_html;
 	}
 }
 
