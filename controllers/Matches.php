@@ -196,9 +196,9 @@ class Matches extends CI_Controller {
                 echo $this->_ret . $class_name . ' Controller already exists in the application/controllers' . $directories . ' directory.';
             } else
             {
-                if (file_exists($this->_templates_loc . 'controller.txt'))
+                if (file_exists($this->_templates_loc . 'controller.php'))
                 {
-                    $f = file_get_contents($this->_templates_loc . 'controller.txt');
+                    $f = file_get_contents($this->_templates_loc . 'controller.php');
                 } else
                 {
                     echo $this->_ret . 'Couldn\'t find Controller template.';
@@ -248,9 +248,9 @@ class Matches extends CI_Controller {
                 echo $this->_ret . $class_name . ' Model already exists in the application/models' . $directories . ' directory.';
             } else
             {
-                if (file_exists($this->_templates_loc . 'model.txt'))
+                if (file_exists($this->_templates_loc . 'model.php'))
                 {
-                    $f = file_get_contents($this->_templates_loc . 'model.txt');
+                    $f = file_get_contents($this->_templates_loc . 'model.php');
                 } else
                 {
                     echo $this->_ret . 'Couldn\'t find Model template.';
@@ -298,9 +298,9 @@ class Matches extends CI_Controller {
                 echo $this->_ret . $file_name . ' View already exists in the application/views/' . $directories . ' directory.';
             } else
             {
-                if (file_exists($this->_templates_loc . 'view.txt'))
+                if (file_exists($this->_templates_loc . 'view.php'))
                 {
-                    $f = file_get_contents($this->_templates_loc . 'view.txt');
+                    $f = file_get_contents($this->_templates_loc . 'view.php');
                 } else
                 {
                     echo $this->_ret . 'Couldn\'t find View template.';
@@ -348,9 +348,9 @@ class Matches extends CI_Controller {
                 echo $this->_ret . 'template View already exists in the application/views/' . $directories . ' directory.';
             } else
             {
-                if (file_exists($this->_templates_loc . 'view_template.txt'))
+                if (file_exists($this->_templates_loc . 'view_template.php'))
                 {
-                    $f = file_get_contents($this->_templates_loc . 'view_template.txt');
+                    $f = file_get_contents($this->_templates_loc . 'view_template.php');
                 } else
                 {
                     echo $this->_ret . 'Couldn\'t find View template.';
@@ -434,9 +434,9 @@ class Matches extends CI_Controller {
                 return FALSE;
             } else
             {
-                if (file_exists($this->_templates_loc . 'migration.txt'))
+                if (file_exists($this->_templates_loc . 'migration.php'))
                 {
-                    $f = file_get_contents($this->_templates_loc . 'migration.txt');
+                    $f = file_get_contents($this->_templates_loc . 'migration.php');
                 } else
                 {
                     echo $this->_ret . 'Couldn\'t find Migration template.';
