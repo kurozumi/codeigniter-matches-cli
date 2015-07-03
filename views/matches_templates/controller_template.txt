@@ -18,6 +18,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 	public function get($id)
 	{
 		$id = intval($id);
+		
 		if($id!=0)
 		{
 			$data['content'] = $this->model->get($id);
@@ -25,7 +26,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		}
 		else
 		{
-			redirect(site_url(),'refresh');
+			redirect(site_url(), 'refresh');
 		}
 	}
 	
@@ -56,6 +57,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 	{
 		$this->form_validation->set_rules('element','Element label','trim|required');
 		$this->form_validation->set_rules('id','ID','trim|is_natural_no_zero|required');
+		
 		if($this->form_validation->run()===FALSE)
 		{
 			if(!$this->input->post())
@@ -66,6 +68,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 			{
 				$id = set_value('id');
 			}
+			
 			$data['input_element'] = array('name'=>'element', 'id'=>'element', 'value'=>set_value('element'));
 			$data['hidden'] = array('id'=>set_value('id',$id));
 			$this->load->view('{{MV}}_view', $data);
@@ -96,7 +99,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		}
 		else
 		{
-			redirect(site_url(),'refresh');
+			redirect(site_url(), 'refresh');
 		}
 	}
 }
