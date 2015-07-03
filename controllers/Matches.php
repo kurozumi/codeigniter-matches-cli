@@ -289,7 +289,7 @@ class Matches extends CI_Controller {
             $file_name   = $names['file'];
             $directories = $names['directories'];
             
-            if (file_exists(APPPATH . 'views/' . $file_name . '/index.php'))
+            if (file_exists(APPPATH . 'views/' . $file_name . '.php'))
             {
                 return $this->_ret . $file_name . ' View already exists in the application/views/' . $directories . ' directory.';
             } else
@@ -302,7 +302,7 @@ class Matches extends CI_Controller {
                     return $this->_ret . 'Couldn\'t find View template.';
                 }
                 
-                $this->_find_replace['{{VIEW}}'] = $file_name . '/index.php';
+                $this->_find_replace['{{VIEW}}'] = $file_name . '.php';
                 $f = strtr($f, $this->_find_replace);
                 
                 if (strlen($directories) > 0 && !file_exists(APPPATH . 'views/' . $directories))
@@ -310,7 +310,7 @@ class Matches extends CI_Controller {
                     mkdir(APPPATH . 'views/' . $directories, 0777, true);
                 }
                 
-                if (write_file(APPPATH . 'views/' . $file_name . '/index.php', $f))
+                if (write_file(APPPATH . 'views/' . $file_name . '.php', $f))
                 {
                     return $this->_ret . 'View ' . $file_name . ' has been created inside ' . APPPATH . 'views/' . $directories . '.';
                 } else
