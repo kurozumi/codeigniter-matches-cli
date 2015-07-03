@@ -162,7 +162,7 @@ class Matches extends CI_Controller {
     {
         if (isset($app))
         {
-            if (file_exists('application/controllers/' . $this->_filename($app) . '.tpl') OR ( class_exists('' . $app . '')) OR ( class_exists('' . $app . '_model')))
+            if (file_exists('application/controllers/' . $this->_filename($app) . '.php') OR ( class_exists('' . $app . '')) OR ( class_exists('' . $app . '_model')))
             {
                 echo $app . ' Controller or Model already exists in the application/controllers directory.';
             } else
@@ -191,7 +191,7 @@ class Matches extends CI_Controller {
             $class_name = $names['class'];
             $file_name = $names['file'];
             $directories = $names['directories'];
-            if (file_exists(APPPATH . 'controllers/' . $file_name . '.tpl'))
+            if (file_exists(APPPATH . 'controllers/' . $file_name . '.php'))
             {
                 echo $this->_ret . $class_name . ' Controller already exists in the application/controllers' . $directories . ' directory.';
             } else
@@ -205,7 +205,7 @@ class Matches extends CI_Controller {
                     return FALSE;
                 }
                 $this->_find_replace['{{CONTROLLER}}'] = $class_name;
-                $this->_find_replace['{{CONTROLLER_FILE}}'] = $file_name . '.tpl';
+                $this->_find_replace['{{CONTROLLER_FILE}}'] = $file_name . '.php';
                 $this->_find_replace['{{MV}}'] = strtolower($class_name);
                 $this->_find_replace['{{C_EXTENDS}}'] = $this->_c_extends;
                 $f = strtr($f, $this->_find_replace);
@@ -213,7 +213,7 @@ class Matches extends CI_Controller {
                 {
                     mkdir(APPPATH . 'controllers/' . $directories, 0777, true);
                 }
-                if (write_file(APPPATH . 'controllers/' . $file_name . '.tpl', $f))
+                if (write_file(APPPATH . 'controllers/' . $file_name . '.php', $f))
                 {
                     echo $this->_ret . 'Controller ' . $class_name . ' has been created inside ' . APPPATH . 'controllers/' . $directories . '.';
                     return TRUE;
@@ -243,7 +243,7 @@ class Matches extends CI_Controller {
             $file_name = $names['file'];
             $directories = $names['directories'];
             
-            if (file_exists(APPPATH . 'models/' . $file_name . '.tpl'))
+            if (file_exists(APPPATH . 'models/' . $file_name . '.php'))
             {
                 echo $this->_ret . $class_name . ' Model already exists in the application/models' . $directories . ' directory.';
             } else
@@ -257,14 +257,14 @@ class Matches extends CI_Controller {
                     return FALSE;
                 }
                 $this->_find_replace['{{MODEL}}'] = $class_name;
-                $this->_find_replace['{{MODEL_FILE}}'] = $file_name . '.tple';
+                $this->_find_replace['{{MODEL_FILE}}'] = $file_name . '.php';
                 $this->_find_replace['{{MO_EXTENDS}}'] = $this->_mo_extends;
                 $f = strtr($f, $this->_find_replace);
                 if (strlen($directories) > 0 && !file_exists(APPPATH . 'models/' . $directories))
                 {
                     mkdir(APPPATH . 'models/' . $directories, 0777, true);
                 }
-                if (write_file(APPPATH . 'models/' . $file_name . '.tple', $f))
+                if (write_file(APPPATH . 'models/' . $file_name . '.php', $f))
                 {
                     echo $this->_ret . 'Model ' . $class_name . ' has been created inside ' . APPPATH . 'models/' . $directories . '.';
                     return TRUE;
@@ -293,7 +293,7 @@ class Matches extends CI_Controller {
             $file_name = $names['file'];
             $directories = $names['directories'];
             
-            if (file_exists(APPPATH . 'views/' . $file_name . '.tpl'))
+            if (file_exists(APPPATH . 'views/' . $file_name . '.php'))
             {
                 echo $this->_ret . $file_name . ' View already exists in the application/views/' . $directories . ' directory.';
             } else
@@ -307,7 +307,7 @@ class Matches extends CI_Controller {
                     return FALSE;
                 }
                 
-                $this->_find_replace['{{VIEW}}'] = $file_name . '.tpl';
+                $this->_find_replace['{{VIEW}}'] = $file_name . '.php';
                 $f = strtr($f, $this->_find_replace);
                 
                 if (strlen($directories) > 0 && !file_exists(APPPATH . 'views/' . $directories))
@@ -315,7 +315,7 @@ class Matches extends CI_Controller {
                     mkdir(APPPATH . 'views/' . $directories, 0777, true);
                 }
                 
-                if (write_file(APPPATH . 'views/' . $file_name . '.tpl', $f))
+                if (write_file(APPPATH . 'views/' . $file_name . '.php', $f))
                 {
                     echo $this->_ret . 'View ' . $file_name . ' has been created inside ' . APPPATH . 'views/' . $directories . '.';
                     return TRUE;
@@ -343,7 +343,7 @@ class Matches extends CI_Controller {
             $names = $this->_names($view);
             $directories = $names['directories'];
             
-            if (file_exists(APPPATH . 'views/template.tpl'))
+            if (file_exists(APPPATH . 'views/template.php'))
             {
                 echo $this->_ret . 'template View already exists in the application/views/' . $directories . ' directory.';
             } else
@@ -362,7 +362,7 @@ class Matches extends CI_Controller {
                     mkdir(APPPATH . 'views/' . $directories, 0777, true);
                 }
 
-                if (write_file(APPPATH . 'views/template.tpl', $f))
+                if (write_file(APPPATH . 'views/template.php', $f))
                 {
                     echo $this->_ret . 'View template has been created inside ' . APPPATH . 'views/' . $directories . '.';
                     return TRUE;
@@ -416,7 +416,7 @@ class Matches extends CI_Controller {
             } else
             {
                 $latest_migration = 0;
-                foreach (glob($migration_path . '*.tpl') as $migration)
+                foreach (glob($migration_path . '*.php') as $migration)
                 {
                     $pattern = '/[0-9]{3}/';
                     if (preg_match($pattern, $migration, $matches))
@@ -452,7 +452,7 @@ class Matches extends CI_Controller {
                 }
                 $this->_find_replace['{{TABLE}}'] = $table;
                 $f = strtr($f, $this->_find_replace);
-                if (write_file($migration_path . $file_name . '.tpl', $f))
+                if (write_file($migration_path . $file_name . '.php', $f))
                 {
                     echo $this->_ret . 'Migration ' . $class_name . ' has been created.';
                     return TRUE;
