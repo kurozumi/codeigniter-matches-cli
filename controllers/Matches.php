@@ -243,7 +243,7 @@ class Matches extends CI_Controller {
             $file_name = $names['file'];
             $directories = $names['directories'];
             
-            if (file_exists(APPPATH . 'models/' . $file_name . '.php'))
+            if (file_exists(APPPATH . 'models/' . $file_name . '_model.php'))
             {
                 echo $this->_ret . $class_name . ' Model already exists in the application/models' . $directories . ' directory.';
             } else
@@ -257,14 +257,14 @@ class Matches extends CI_Controller {
                     return FALSE;
                 }
                 $this->_find_replace['{{MODEL}}'] = $class_name;
-                $this->_find_replace['{{MODEL_FILE}}'] = $file_name . '.php';
+                $this->_find_replace['{{MODEL_FILE}}'] = $file_name . '_model.php';
                 $this->_find_replace['{{MO_EXTENDS}}'] = $this->_mo_extends;
                 $f = strtr($f, $this->_find_replace);
                 if (strlen($directories) > 0 && !file_exists(APPPATH . 'models/' . $directories))
                 {
                     mkdir(APPPATH . 'models/' . $directories, 0777, true);
                 }
-                if (write_file(APPPATH . 'models/' . $file_name . '.php', $f))
+                if (write_file(APPPATH . 'models/' . $file_name . '_model.php', $f))
                 {
                     echo $this->_ret . 'Model ' . $class_name . ' has been created inside ' . APPPATH . 'models/' . $directories . '.';
                     return TRUE;
