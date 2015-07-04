@@ -2,6 +2,8 @@
 
 class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 {
+	public $data;
+	
 	public function __construct()
 	{
 		parent::__construct();
