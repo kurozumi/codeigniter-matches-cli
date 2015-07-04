@@ -38,7 +38,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		
 		if($this->form_validation->run() === FALSE)
 		{
-			$this->_render_page('{{MV}}/add');
+			$this->_render_page('{{MV}}/edit');
 		}
 		else
 		{
