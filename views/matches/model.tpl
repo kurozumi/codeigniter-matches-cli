@@ -34,6 +34,14 @@ class {{MODEL}}_model extends {{MO_EXTENDS}}_Model
 	
 	public function update($data)
 	{
+		$fields = $this->db->list_fields('{{MODEL}}');
+
+		foreach($data as $key => $value)
+		{
+			if(!in_array($key, $fields))
+				unset($data[$key]);
+		}
+		
 		$id = $data['id'];
 		unset($data['id']);
 		$this->db->where('id', $id);
