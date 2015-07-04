@@ -73,10 +73,10 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 			if(!($this->data['input'] = $this->model->get($id)))
 			{
 				$this->session->set_flashdata('message', 'error.');
-				redirect(site_url('{{MV}}'), 'refresh');
+				redirect(site_url("{{MV}}/edit/{$id}"), 'refresh');
 			}
 						
-			$this->_render_page('{{MV}}/edit', $this->data);
+			$this->_render_page('{{MV}}', $this->data);
 		}
 		else
 		{
