@@ -77,7 +77,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		{
 			$data = $this->input->post();
 
-			if($this->model->update($data)
+			if($this->model->update($data))
 			{
 				$this->session->set_flashdata('message', 'edited.');
 			}
