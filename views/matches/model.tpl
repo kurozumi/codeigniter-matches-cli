@@ -9,13 +9,13 @@ class {{MODEL}}_model extends {{MO_EXTENDS}}_Model
 	
 	public function get_all()
 	{
-		return ('This is your first application');
+		return $this->db->get('{{MODEL}}')->result();
 	}
 	
 	public function get($id)
 	{
 		$this->db->where('id', $id);
-		return $this->db->get('{{MODEL}}');
+		return $this->db->get('{{MODEL}}')->row();
 	}
 	
 	public function add($data)
