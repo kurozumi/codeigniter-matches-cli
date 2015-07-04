@@ -238,8 +238,8 @@ class Matches extends CI_Controller {
         if (isset($model))
         {
             $names = $this->_names($model);
-            $class_name = $names['class'];
-            $file_name = $names['file'];
+            $class_name  = $names['class'];
+            $file_name   = $names['file'];
             $directories = $names['directories'];
             
             if (file_exists(APPPATH . 'models/' . $file_name . '_model.php'))
@@ -254,7 +254,7 @@ class Matches extends CI_Controller {
                 {
                     return $this->_ret . 'Couldn\'t find Model template.';
                 }
-                $this->_find_replace['{{MODEL}}'] = $class_name;
+                $this->_find_replace['{{MODEL}}']      = $class_name;
                 $this->_find_replace['{{MODEL_FILE}}'] = $file_name . '_model.php';
                 $this->_find_replace['{{MO_EXTENDS}}'] = $this->_mo_extends;
                 $f = strtr($f, $this->_find_replace);

@@ -15,12 +15,20 @@ class {{MODEL}}_model extends {{MO_EXTENDS}}_Model
 	public function get($id)
 	{
 		$this->db->where('id', $id);
-		return $this->db->get('tabel');
+		return $this->db->get('{{MODEL}}');
 	}
 	
 	public function add($data)
 	{
-		$this->db->insert('table', $data);
+		$fields = $this->db->list_fields('{{MODEL}}');
+
+		foreach($data as $key => $value)
+		{
+			if(!in_array($key, $fields))
+				unset($data[$key]);
+		}
+
+		$this->db->insert('{{MODEL}}', $data);
 		return $this->db->insert_id();
 	}
 	
@@ -29,12 +37,12 @@ class {{MODEL}}_model extends {{MO_EXTENDS}}_Model
 		$id = $data['id'];
 		unset($data['id']);
 		$this->db->where('id', $id);
-		return $this->db->update('table', $data);
+		return $this->db->update('{{MODEL}}', $data);
 	}
 	
 	public function delete($id)
 	{
-		return $this->db->delete('table', array('id' => $id));
+		return $this->db->delete('{{MODEL}}', array('id' => $id));
 	}
 }
 
