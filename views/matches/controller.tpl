@@ -65,8 +65,11 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		
 		if($this->form_validation->run() === FALSE)
 		{
-			$id = (!$this->input->post()) ? 
-				intval($this->uri->segment($this->uri->total_segments())) :set_value('id');
+			$id = $this->input->post('id) ? 
+				$this->input->post('id) : intval($this->uri->segment($this->uri->total_segments()));
+				
+			if(!$id)
+				redirect(site_url('{{MV}}'), 'refresh');
 			
 			if(!($this->data['input'] = $this->model->get($id)))
 			{
