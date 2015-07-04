@@ -12,21 +12,22 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 
 		$this->load->model('{{MV}}_model', 'model');
 		
-		$this->load->library('form_validation');
+		$this->load->library(array('form_validation', 'session'));
+		
+		$this->data = $this->session->flashdata('message');
 	}
 	
 	public function index()
 	{
-		$data['content'] = $this->model->get_all();
-		$this->_render_page('{{MV}}', $data);
+		$this->data['content'] = $this->model->get_all();
+		$this->_render_page('{{MV}}/index', $this->data);
 	}
 		
 	public function view($id)
 	{
-		if($data = $this->model->get(intval($id)))
+		if($this->data['content'] = $this->model->get(intval($id)))
 		{
-			$data['content'] = $data;
-			$this->_render_page('{{MV}}', $data);		
+			$this->_render_page('{{MV}}/index', $this->data);		
 		}else{
 			show_404();
 		}
@@ -67,13 +68,13 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 			$id = (!$this->input->post()) ? 
 				intval($this->uri->segment($this->uri->total_segments())) :set_value('id');
 			
-			if(!($data['input'] = $this->model->get($id)))
+			if(!($this->data['input'] = $this->model->get($id)))
 			{
 				$this->session->set_flashdata('message', 'error.');
 				redirect(site_url('{{MV}}/edit'), 'refresh');
 			}
 						
-			$this->_render_page('{{MV}}/edit', $data);
+			$this->_render_page('{{MV}}/edit', $this->data);
 		}
 		else
 		{
