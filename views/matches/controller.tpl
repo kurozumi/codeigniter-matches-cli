@@ -21,38 +21,28 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		
 	public function view($id)
 	{
-		$id = intval($id);
-		
-		if($id!=0)
+		if($data = $this->model->get(intval($id)))
 		{
-			$data['content'] = $this->model->get($id);
-			$this->_render_page('{{MV}}', $data);
-		}
-		else
-		{
-			redirect(site_url('{{MV}}'), 'refresh');
+			$data['content'] = $data;
+			$this->_render_page('{{MV}}', $data);		
+		}else{
+			show_404();
 		}
 	}
 	
 	public function add()
 	{
-		$this->form_validation->set_rules('element','Element label','trim|required');
+		$this->form_validation->set_rules('element','Element','trim|required');
 		
 		if($this->form_validation->run() === FALSE)
 		{
-			$data['input_element'] = array(
-				'name'  => 'element',
-				'id'    => 'element',
-				'value' => set_value('element')
-			);
-			
-			$this->_render_page('{{MV}}/add', $data);
+			$this->_render_page('{{MV}}/add');
 		}
 		else
 		{
-			$field = $this->input->post('element');
+			$data = $this->input->post();
 
-			if($this->model->add(array('field_name' => $field)))
+			if($this->model->add($data))
 			{
 				$this->session->set_flashdata('message', 'add.');
 			}
@@ -67,30 +57,19 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 	
 	public function edit()
 	{
-		$this->form_validation->set_rules('element','Element label','trim|required');
+		$this->form_validation->set_rules('element','Element','trim|required');
 		$this->form_validation->set_rules('id','ID','trim|is_natural_no_zero|required');
 		
 		if($this->form_validation->run() === FALSE)
 		{
-			if(!$this->input->post())
+			$id = (!$this->input->post()) ? 
+				intval($this->uri->segment($this->uri->total_segments())) :set_value('id');
+			
+			if(!($data['input'] = $this->model->get($id)))
 			{
-				$id = intval($this->uri->segment($this->uri->total_segments()));
+				show_404();
 			}
-			else
-			{
-				$id = set_value('id');
-			}
-			
-			$data['input_element'] = array(
-				'name'  => 'element',
-				'id'    => 'element',
-				'value' => set_value('element')
-			);
-			
-			$data['hidden'] = array(
-				'id' => set_value('id',$id)
-			);
-			
+						
 			$this->_render_page('{{MV}}/edit', $data);
 		}
 		else
@@ -113,11 +92,9 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 	
 	public function delete($id)
 	{
-		$id = intval($id);
-		
-		if($id > 0)
+		if($id = $this->input->post('id'))
 		{
-			$this->model->delete($id);
+			$this->model->delete(intval($id));
 			$this->session->set_flashdata('message', 'deleted.');
 		}
 		else
