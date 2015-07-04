@@ -12,13 +12,30 @@ class {{MODEL}}_model extends {{MO_EXTENDS}}_Model
 		return ('This is your first application');
 	}
 	
-	public function get($id){}
+	public function get($id)
+	{
+		$this->db->where('id', $id);
+		return $this->db->get('tabel');
+	}
 	
-	public function add($data){}
+	public function add($data)
+	{
+		$this->db->insert('table', $data);
+		return $this->db->insert_id();
+	}
 	
-	public function update($data){}
+	public function update($data)
+	{
+		$id = $data['id'];
+		unset($data['id']);
+		$this->db->where('id', $id);
+		return $this->db->update('table', $data);
+	}
 	
-	public function delete($id){}
+	public function delete($id)
+	{
+		return $this->db->delete('table', array('id' => $id));
+	}
 }
 
 /* End of file '{{MODEL_FILE}}' */

@@ -57,8 +57,8 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 	
 	public function edit()
 	{
-		$this->form_validation->set_rules('element','Element','trim|required');
 		$this->form_validation->set_rules('id','ID','trim|is_natural_no_zero|required');
+		$this->form_validation->set_rules('element','Element','trim|required');
 		
 		if($this->form_validation->run() === FALSE)
 		{
@@ -67,17 +67,17 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 			
 			if(!($data['input'] = $this->model->get($id)))
 			{
-				show_404();
+				$this->session->set_flashdata('message', 'error.');
+				redirect(site_url('{{MV}}/edit'), 'refresh');
 			}
 						
 			$this->_render_page('{{MV}}/edit', $data);
 		}
 		else
 		{
-			$element = $this->input->post('element');
-			$id      = $this->input->post('id');
+			$data = $this->input->post();
 
-			if($this->model->update(array('element' => $element), array('id' => $id)))
+			if($this->model->update($data)
 			{
 				$this->session->set_flashdata('message', 'edited.');
 			}
