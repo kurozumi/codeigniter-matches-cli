@@ -14,7 +14,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		
 		$this->load->library(array('form_validation', 'session'));
 		
-		$this->data = $this->session->flashdata('message');
+		$this->data['message'] = $this->session->flashdata('message');
 	}
 	
 	public function index()
@@ -28,7 +28,9 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		if($this->data['content'] = $this->model->get(intval($id)))
 		{
 			$this->_render_page('{{MV}}/index', $this->data);		
-		}else{
+		}
+		else
+		{
 			show_404();
 		}
 	}
@@ -68,13 +70,10 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 			$id = $this->input->post('id) ? 
 				$this->input->post('id) : intval($this->uri->segment($this->uri->total_segments()));
 				
-			if(!$id)
-				redirect(site_url('{{MV}}'), 'refresh');
-			
 			if(!($this->data['input'] = $this->model->get($id)))
 			{
 				$this->session->set_flashdata('message', 'error.');
-				redirect(site_url('{{MV}}/edit'), 'refresh');
+				redirect(site_url('{{MV}}'), 'refresh');
 			}
 						
 			$this->_render_page('{{MV}}/edit', $this->data);
