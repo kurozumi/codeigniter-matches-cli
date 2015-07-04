@@ -19,7 +19,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 	
 	public function index()
 	{
-		$this->data['content'] = $this->model->get_all();
+		$this->data['{{MV}}'] = $this->model->get_all();
 		$this->_render_page('{{MV}}/index', $this->data);
 	}
 		
@@ -67,8 +67,8 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		
 		if($this->form_validation->run() === FALSE)
 		{
-			$id = $this->input->post('id) ? 
-				$this->input->post('id) : intval($this->uri->segment($this->uri->total_segments()));
+			$id = $this->input->post('id') ? 
+				$this->input->post('id') : intval($this->uri->segment($this->uri->total_segments()));
 				
 			if(!($this->data['input'] = $this->model->get($id)))
 			{
