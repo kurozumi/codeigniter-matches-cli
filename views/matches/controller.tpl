@@ -70,12 +70,13 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 			$id = $this->input->post('id') ? 
 				$this->input->post('id') : intval($this->uri->segment($this->uri->total_segments()));
 				
-			if(!($this->data['input'] = $this->model->get($id)))
+			if(!($data = $this->model->get($id)))
 			{
 				$this->session->set_flashdata('message', 'error.');
-				redirect(site_url("{{MV}}/edit/{$id}"), 'refresh');
+				redirect(site_url("{{MV}}"), 'refresh');
 			}
-						
+			
+			$this->data['input'] = $data;
 			$this->_render_page('{{MV}}/edit', $this->data);
 		}
 		else
@@ -91,7 +92,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 				$this->session->set_flashdata('message', 'unabled to edited.');
 			}
 			
-			redirect(site_url('{{MV}}/edit'), 'refresh');
+			redirect(site_url("{{MV}}/edit/{$data['id']}"), 'refresh');
 		}
 	}
 	
