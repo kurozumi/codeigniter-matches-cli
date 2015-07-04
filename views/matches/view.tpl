@@ -2,7 +2,7 @@
 	<h1>title</h1>
 </div>
 
-<?php if($message):?>
+<?php if(isset($message) && !empty($message)):?>
 <div class="alert alert-danger">
     <?php echo $message;?>
 </div>
