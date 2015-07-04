@@ -76,7 +76,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 				redirect(site_url("{{MV}}/edit/{$id}"), 'refresh');
 			}
 						
-			$this->_render_page('{{MV}}', $this->data);
+			$this->_render_page('{{MV}}/edit', $this->data);
 		}
 		else
 		{
