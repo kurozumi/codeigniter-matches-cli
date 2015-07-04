@@ -18,7 +18,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 	public function index()
 	{
 		$data['content'] = $this->model->get_all();
-		$this->_render_page('{{MV}}/index', $data);
+		$this->_render_page('{{MV}}', $data);
 	}
 		
 	public function view($id)
@@ -26,7 +26,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		if($data = $this->model->get(intval($id)))
 		{
 			$data['content'] = $data;
-			$this->_render_page('{{MV}}/index', $data);		
+			$this->_render_page('{{MV}}', $data);		
 		}else{
 			show_404();
 		}
@@ -53,7 +53,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 				$this->session->set_flashdata('message', 'enabled to add.');
 			}
 			
-			redirect(site_url('{{MV}}/index'), 'refresh');
+			redirect(site_url('{{MV}}'), 'refresh');
 		}
 	}
 	
@@ -104,7 +104,7 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 			$this->session->set_flashdata('message', 'unabled to delete.');
 		}
 
-		redirect(site_url('{{MV}}/index'), 'refresh');
+		redirect(site_url('{{MV}}'), 'refresh');
 	}
 
 	private function _render_page($view, $data=null, $render=false)

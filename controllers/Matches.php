@@ -237,7 +237,7 @@ class Matches extends CI_Controller {
     {
         if (isset($model))
         {
-            $names = $this->_names($model);
+            $names       = $this->_names($model);
             $class_name  = $names['class'];
             $file_name   = $names['file'];
             $directories = $names['directories'];
